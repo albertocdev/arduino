@@ -66,5 +66,11 @@ namespace Arduino
             frmLogin vLogin = new frmLogin();
             vLogin.Show();
         }
+
+        private void logsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmLogs vLogs = new frmLogs();
+            vLogs.Show();
+        }
     }
 }

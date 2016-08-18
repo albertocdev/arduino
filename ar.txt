@@ -1,0 +1,49 @@
+Código para el Arduino:
+
+-----------------------------------------------------------------------------------
+ #include <Servo.h>
+
+ Servo myservo;
+        int contador = 0;  // analog pin used to connect the potentiometer
+ int val;    // variable to read the value from the analog pin
+
+ void setup()
+ {
+  myservo.attach(9);  // attaches the servo on pin 9 to the servo object
+                Serial.begin(9600);
+ }
+
+ void loop()
+ {
+          if(Serial.available())
+          {
+                int c = Serial.read();
+                if (c == '0')
+                {
+                  contador = contador - 50; 
+                  if (contador < 50)
+                  contador = 50;
+                                      // Establecemos el valor de la posicion a 50º
+    val = map(contador, 0, 1023, 0, 179);    // Establecemos la relacion entre los grados de giro y el PWM 
+                  /* Con el mapa de valores anterior establecemos una relacin proporcional */ 
+                  /* entre el pulso minimo 0 con el grado minimo, 0 tambien y el pulso maximo*/ 
+                  /* 1023 con el grado maximo, 179*/                   
+                  myservo.write(val);  // Escribimos la posicion con el mapa de valores al servo 
+    delay(150);
+                }else if (c == '1')
+                {
+                  contador = contador + 50;             // Establecemos el valor de la posicion a 10º
+                  if (contador > 1500)
+                  contador = 1500;   
+                  val = map(contador, 0, 1023, 0, 179);    // Establecemos la relacion entre los grados de giro y el PWM 
+                  /* Con el mapa de valores anterior establecemos una relacin proporcional */ 
+                  /* entre el pulso minimo 0 con el grado minimo, 0 tambien y el pulso maximo*/ 
+                  /* 1023 con el grado maximo, 179*/                   
+                  myservo.write(val);  // Escribimos la posicion con el mapa de valores al servo 
+    delay(150);
+                }
+           }
+        }
+
+---------------------------------------------------------------------------
+Conexión:

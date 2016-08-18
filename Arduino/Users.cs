@@ -25,11 +25,13 @@ namespace Arduino
                 if (db.getReader.HasRows && db.getReader.Read())
                 {
                     level = db.getReader.GetInt32(4);
+                    log_login(db.getReader.GetInt32(0), "OK");
                     return true;
 
                 }
                 else
                 {
+                    log_login(db.getReader.GetInt32(0), "BAD");
                     MessageBox.Show("Datos de acceso incorrectos.");
                     return false;
                 }
@@ -39,6 +41,22 @@ namespace Arduino
                 return false;
             }
             
+        }
+
+        public void log_login(int id_user,string status)
+        {
+            DateTime now = DateTime.Now;
+            db.connect();
+            sql = "INSERT INTO log_login(id_user,status,date) values(" + id_user + ",'" + status + "','" + now.ToString("yyyy-MM-dd HH':'mm':'ss") + "')";
+            try
+            {
+                db.executeSql(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(sql);
+            }
+
         }
 
         public void getUsers(DataGridView gridUsers)
@@ -128,6 +146,32 @@ namespace Arduino
             }
             db.disconnect();
 
+        }
+
+
+        public void getLogs(DataGridView gridLogs)
+        {
+            string rol;
+            db.connect();
+            sql = "select t1.u_name,t2.status,t2.date from (select * from users) as t1 join (select * from log_login) as t2 on t1.u_id=t2.id_user";
+            try
+            {
+                db.ExecuteReader(sql);
+                if (db.getReader.HasRows)
+                {
+
+                    while (db.getReader.Read())
+                    {
+                        gridLogs.Rows.Add(db.getReader.GetString(0), db.getReader.GetString(1), db.getReader.GetString(2));
+
+                    }
+                }
+                db.disconnect();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrio un error al obtener los datos, intente nuevamente.");
+            }
         }
     }
 }

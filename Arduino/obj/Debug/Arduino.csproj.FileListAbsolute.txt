@@ -12,3 +12,4 @@ C:\Users\Alberto Estrada\Documents\Visual Studio 2013\Projects\Arduino\Arduino\o
 C:\Users\Alberto Estrada\Documents\Visual Studio 2013\Projects\Arduino\Arduino\obj\Debug\Arduino.acerca.resources
 C:\Users\Alberto Estrada\Documents\Visual Studio 2013\Projects\Arduino\Arduino\obj\Debug\Arduino.editUser.resources
 C:\Users\Alberto Estrada\Documents\Visual Studio 2013\Projects\Arduino\Arduino\obj\Debug\Arduino.frmUser.resources
+C:\Users\Alberto Estrada\Documents\Visual Studio 2013\Projects\Arduino\Arduino\obj\Debug\Arduino.frmLogs.resources
